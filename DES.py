@@ -4,6 +4,8 @@
 
 # -*- coding: utf8 -*-
 import math
+import secrets
+import string
 
 # Initial permut matrix for the datas
 IP = [58, 50, 42, 34, 26, 18, 10, 2,
@@ -140,6 +142,10 @@ def binvalue(val, bitsize):  # Return the binary value as a string of the given 
 def nsplit(s, n):  # Split a list into sublists of size "n"
     return [s[k:k + n] for k in range(0, len(s), n)]
 
+def random_keys():
+    res = ''.join(secrets.choice(string.ascii_letters + string.digits)
+                  for x in range(16))
+    return str(res)
 
 def addPadding(text):  # Add padding to the datas
     pad_len = math.ceil(len(text) / 8) * 8
