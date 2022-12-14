@@ -59,11 +59,11 @@ while True:
         recv_e, recv_N= f.read().split()
         enc_key = rsa.encrypt(int(recv_e), int(recv_N), ' '.join(map(str, key)))
         msg = input("Input message :")
-        if len(msg) != 8:
-            print("Message must be 8 characters long")
-        else:
+        if len(msg) % 8 != 0:
+            msg = DES.addPadding(msg)
             # msg = DES.ascii2bin(msg) # Ubah message menjadi binary
-            cipher_text = DES.des().encrypt(key, msg) # Encrypt message dengan DES
-            print("Encrypted message: " + cipher_text) # Message setelah di-encrypt
-            sock.send(bytes("{}|{}|{}".format(dest, cipher_text, enc_key), "utf-8"))
+        cipher_text = DES.des().encrypt(key, msg) # Encrypt message dengan DES
+        print("Encrypted message: " + cipher_text) # Message setelah di-encrypt
+        sock.send(bytes("{}|{}|{}".format(dest, cipher_text, enc_key), "utf-8"))
+
         time.sleep(0.5)
